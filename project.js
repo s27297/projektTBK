@@ -7,11 +7,21 @@ const postsRouter=require('./routers/postsRouter');
 const messagesRouter=require('./routers/messagesRouter');
 const groupsRouter=require('./routers/groupsRouter');
 const authRouter=require('./auth/authRoutes');
+const timestamping = require("./middleware");
+
+// app.use((req,res,next)=>{
+//     const timestamp=new Date().toISOString()
+//     req.timestamp=timestamp
+//     console.log(timestamp);
+//     req.body.name.toUpperCase()
+//     res.append("timestamp",timestamp)
+//     next()
+// })
 
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
-
+app.use(timestamping);
 app.use('/auth', authRouter)
 app.use('/users', userRouter)
 app.use('/posts', postsRouter)
@@ -19,7 +29,7 @@ app.use('/messages', messagesRouter)
 app.use('/groups',groupsRouter)
 
 app.get('/',(req,res)=>{
-    res.send('it is siec spolecznosciowa');
+    res.status(200).json({data:'it is siec spolecznosciowa'});
 })
 
 app.use((req,res)=>{

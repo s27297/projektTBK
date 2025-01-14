@@ -2,6 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
 const messageController = require('../controllers/messageController');
+const {authenticate} = require("../auth/authMiddleware");
+
+router.use(authenticate);
 
 //get komentarze wyslane przez jednego usera innemu useru (from i to w body)
 router.get('/', messageController.getMessages)

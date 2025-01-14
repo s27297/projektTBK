@@ -2,7 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
 const groupsController = require('../controllers/groupsController');
+const {authenticate} = require("../auth/authMiddleware");
 
+router.use(authenticate);
 
 //get groups of a user(id of a user w body)
 router.get('/', groupsController.getGroups)

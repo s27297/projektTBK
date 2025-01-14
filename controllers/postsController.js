@@ -73,15 +73,15 @@ module.exports.deletePost= async (req, res) => {
     console.log("delete Post")
     try {
         const checkOwner= await Posts.findById(id)
-
+        if(!checkOwner)
+            return res.status(404).json({success:false,data:"post nie znalazony"});
         if(!(req.user.id.toString()===checkOwner.user.toString()||req.user.Admin))
-            return res.status(401).json({success:false,data:"nie jestesz wlascicielem commentarza"});
+            return res.status(401).json({success:false,data:"nie jestesz wlascicielem posta"});
 
         const posts=await Posts.findByIdAndDelete(id)
-        if(!posts)
-            return res.status(404).json({success:false,data:"post nie znalazony"});
-        else
-            res.status(200).json({success:true,data:"post usuniety"});
+
+
+        res.status(200).json({success:true,data:"post usuniety"});
     } catch (err) {
         console.log(err);
         res.status(500).json({ error: "Wystąpił błąd podczas editowania posta." });
@@ -178,7 +178,8 @@ module.exports.deleteComment= async (req, res) => {
     const id=req.params.id;
     try{
         const checkOwner= await Comment.findById(id)
-
+        if(!checkOwner)
+            return res.status(404).json({success: false, data: "comment not found "})
         if(!(req.user.id.toString()===checkOwner.user.toString()||req.user.Admin))
             return res.status(401).json({success:false,data:"nie jestesz wlascicielem commentarza"});
 
