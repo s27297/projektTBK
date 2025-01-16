@@ -35,9 +35,12 @@ const userSchema=new Schema({
     Admin:{
         type:Boolean,
         default:false,
-    }
+    },
+    lastLogout:{type:Date,default:Date.now},
+    darkmode:{type:Boolean,default:false},
+    isActive:{type:Boolean,default:true},
     // friends:{type:Array}
-})
+},{versionKey:false})
 
 // Middleware przed zapisem - hashowanie hasła
 userSchema.pre('save', async function(next) {

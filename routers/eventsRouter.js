@@ -4,20 +4,24 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
+const EventsController = require('../controllers/EventsController');
+const {authenticate} = require("../auth/authMiddleware");
 
 
-/*
-//get group of a user(id of a user w body)
-router.get('/',EventsController.getMessages)
+router.use(authenticate);
+//get all events(jezeli id of a user w body to tylko jego eventy)
+router.get('/',EventsController.getEvents);
 
-//add group z 1 userem(id usera w body)
-router.post('/', MessagesController.getMessages)
+//add event (name,date oraz text in body)
+router.post('/', EventsController.addEvent);
 
-//edit group (id group w path,new users,deleted users,name in body)
-router.put('/:id', MessagesController.getMessages)
+//edit event (name,date oraz text in body)
+router.put('/:id', EventsController.editEvent)
 
+//edit members in event (id in path,member in body)
+router.patch('/:id/attendees', EventsController.editParticipants)
 
-//delete group (id group w path)
-router.delete('/:id', MessagesController.getMessages)
+//delete event (id in path)
+router.delete('/:id', EventsController.deleteEvent)
 
- */
+module.exports = router;

@@ -17,8 +17,9 @@ const friendsSchema=new Schema({
         ref:"User",
         required:[true,'User2 jest wymagane']},
     login2:{type:String, required:[true,'login1 jest wymagane']},
-    accepted:{type:Boolean,default:true},
-})
+    accepted:{type:Boolean,default:false},
+
+},{versionKey:false})
 
 let friend=mongoose.model('Friends',friendsSchema)
 

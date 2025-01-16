@@ -4,13 +4,13 @@ const mongoose = require('mongoose');
 const User = require('../schemas/userSchema');
 const Friend = require('../schemas/friendsSchema');
 const { generateToken,decodeToken } = require('../auth/jwt');
+const History = require("../schemas/historySchema");
 
 
 
 //new user
 module.exports.newUser= async (req, res) => {
-    console.log("new User")
-    const { name,email,password,login} = req.body;
+    const { name,email,password,login,Admin} = req.body;
     console.log(name,email,password,login);
     try {
         const unique= await User.findOne({$or:[ {"email":email},{"login":login}] })
@@ -23,11 +23,18 @@ module.exports.newUser= async (req, res) => {
                 'name':name,
                 'email':email,
                 'password':password,
-                'login':login
+                'login':login,
+                'Admin':Admin,
             });
 
         const token = generateToken({ id: user._id });
         await user.save();
+        const history=new History({
+            user:user.id,
+            objekt:"user",
+            action:"rejestred"
+        })
+        await history.save()
         res.status(201).json({success:true,token:token,data:"User zapisany pomyślnie."});
     } catch (err) {
         if(err.name === 'ValidationError'){
@@ -61,7 +68,7 @@ module.exports.getUserProfile=  async (req, res) => {
     const id=req.params.id
     console.log(id);
     try {
-// szukamy pracownika o podanym id
+// szukamy usera o podanym id
         const user=await User.findById(id)
 
         if(!user){return res.status(404).json({success:false,data:"user is not exist"});}
@@ -73,7 +80,6 @@ module.exports.getUserProfile=  async (req, res) => {
     }
 }
 //updateProfile
-//trzeba dodac pola
 module.exports.updateProfile= async (req, res) => {
     console.log("update profile")
 console.log(req.user.id.toString())
@@ -100,6 +106,12 @@ console.log(req.user.id.toString())
                 const up1 = await Friend.updateMany({user1: id}, {$set: {login1: login}})
                 const up2 = await Friend.updateMany({user2: id}, {$set: {login2: login}})
             }
+            const history=new History({
+                user:user.id,
+                objekt:"user",
+                action:"changed profile"
+            })
+            await history.save()
            res.status(200).json({success: true, data:"dane zostaly zmienione"});
         }
         } catch (err) {
@@ -110,114 +122,22 @@ console.log(req.user.id.toString())
 
 };
 
-module.exports.getUserFriends= async (req, res) => {
-    console.log("get User friends")
-
-    const id=req.params.id
-    console.log(id);
+module.exports.settings= async (req,res)=>{
+    const id=req.params.id;
+    const {darkmode}=req.body;
     try {
-        const user=await User.findById(id)
+
+
+        const user=await User.findByIdAndUpdate(id,{$set:{darkmode:darkmode}})
         if(!user)
-            res.status(404).json({success:false,data:"user not found"});
-        const friends=await Friend.find({$or:[{"user1":user},{"user2":user}]})
-        if(!friends)
-            res.status(404).json({success:false,data:"user has no friends"});
-        let friendsIds=[]
-        console.log(friends)
-        friends.map((friend)=>{friend.user1.toString()!==id?friendsIds.push(friend.login1):friendsIds.push(friend.login2)})
-        res.status(200).json(friendsIds);
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({ error: "Wystąpił błąd podczas pobieranie usera." });
-    }
-}
-
-module.exports.addUserFriend=  async (req, res) => {
-    console.log("add User friend")
-
-    const id=req.params.id
-    const { login} = req.body;
-    console.log(id,login);
-    const user1=req.user
-    console.log(user1._id)
-    try {
-
-
-        const user2=await User.findOne({"login":{$regex:login}})
-        if(!user2)
-            res.status(404).json({success:false,data:"user z takim loginem nie znalazony"});
-        //
-        // const user1=await User.findById(id)
-        // if(!user1)
-        //     res.status(404).json({success:false,data:"user z takim id nie znalazony"})
-        // console.log(user2)
-        const newfriend=new Friend({
-            user1:user1.id,
-            login1:user1.login,
-            user2:user2._id,
-            login2:user2.login
-
-        })
-        if(user1.login===user2.login)
-            return res.status(400).json({success:false,data:"to musa byc rozne uzytkownicy"});
-        const f=await Friend.findOne
-        ({$or:[{"user1":user1._id,"user2":user2._id},{"user2":user1._id,"user1":user2._id}]})
-        if(f)
-            return res.status(400).json({success:false,data:"juz istnieje"});
-        else {
-            await newfriend.save();
-            res.status(200).json({success:true,data:newfriend});
-
-        }
-
+            return  res.status(404).json({success:false,data:"user not found"});
+            res.status(200).json({success: true, data:"dane zostaly zmienione"});
 
     } catch (err) {
-        if(err.name === 'ValidationError'){
-            const messages =Object.values(err.errors).map(value => value.message)
-            return res.status(400).json({success:false,errors:messages});
-        }
-//z
         console.log(err);
-        res.status(500).json({ error: "blad podczas tworzenia friendow." });
+        res.status(500).json({ error: "Wystąpił błąd podczas ustawienia." });
     }
 }
-
-
-module.exports.deleteUserFriend=  async (req, res) => {
-    console.log("delete User friend")
-
-    const id=req.params.id
-    // const _id=req.user._id
-    const { login} = req.body;
-    console.log(id,login);
-
-    try {
-
-
-
-        const user=await User.findOne({"login":login})
-        const user2=await User.findById(id)
-        if(!user2)
-            return res.status(404).json({success:false,data:"user z takim id nie znalazony "});
-
-        if(!user)
-            return res.status(404).json({success:false,data:"user z takim loginem nie znalazony "});
-        const friend=await Friend.findOneAndDelete
-        ({$or:[{"login1":login,"login2":user2.login},{"login1":user2.login,"login2":login}]})
-        if(!friend)
-            return res.status(404).json({success:false,data:"usery z takimi danymi nie sa przyjaciolmi "})
-        else {
-            res.status(200).json({success:true,data:"teraz nie przyjaciele"});
-        }
-
-    } catch (err) {
-//z
-        console.log(err);
-        res.status(500).json({ error: "User nie znalezony." });
-    }
-}
-
-module.exports.settings= async (req,res)=>{}
 
 
 

@@ -3,6 +3,7 @@ const User = require('../schemas/userSchema');
 const { generateToken ,decodeToken} = require('./jwt');
 const { comparePassword } = require('./passwordUtils');
 const { promisify } = require('util');
+const History=require('../schemas/historySchema');
 class AuthController {
 
     async login(req, res, next) {
@@ -25,6 +26,12 @@ class AuthController {
                     message: 'Nieprawidłowe dane logowania'
                 });
             }
+            if (!user.isActive ) {
+                return res.status(401).json({
+                    success: false,
+                    message: 'user jest zablokowany'
+                });
+            }
 
             // Weryfikacja hasła
             const isPasswordValid = await comparePassword(password, user.password);
@@ -42,8 +49,12 @@ class AuthController {
             // Generowanie tokenu
             const token = generateToken({ id: user._id });
 
-            // Przygotowanie odpowiedzi bez hasła
-         //  const userResponse = user.toObject();
+            const history=new History({
+                user:user.id,
+                objekt:"user",
+                action:"login"
+            })
+           await history.save()
          //  delete userResponse.password;
             user.password=null
             res.json({
@@ -81,6 +92,12 @@ class AuthController {
             user.password = newPassword;
             await user.save();
 
+            const history=new History({
+                user:user.id,
+                objekt:"user",
+                action:"changed password"
+            })
+            await history.save()
             res.json({
                 success: true,
                 message: 'Hasło zostało zmienione'
@@ -93,6 +110,12 @@ class AuthController {
     async logout(req, res) {
         // W przypadku JWT, właściwe wylogowanie powinno być obsługiwane po stronie klienta
         // poprzez usunięcie tokenu. Tutaj możemy tylko potwierdzić operację.
+        const history=new History({
+            user:req.user.id,
+            objekt:"user",
+            action:"logout"
+        })
+        await history.save()
         res.json({
             success: true,
             message: 'Wylogowano pomyślnie'

@@ -18,6 +18,10 @@ router.put('/:id', groupsController.editGroup)
 
 //delete group (id group w path)
 router.delete('/:id', groupsController.deleteGroup)
+//add member to group(id group w path,member in path)
+router.delete('/:id/members', groupsController.deleteMemberFromGroup)
+//delete member from group(id group w path,member in path)
+router.patch('/:id/members', groupsController.addMemberToGroup)
 
 
 module.exports = router;

@@ -21,7 +21,7 @@ const authenticate = async (req, res, next) => {
 
         // Sprawdzenie czy użytkownik istnieje i jest aktywny
         const user = await User.findById(decoded.id).select('-password');
-        if (!user ) {
+        if (!user||!user.isActive ) {
             return res.status(401).json({
                 success: false,
                 message: 'Użytkownik nie istnieje lub jest nieaktywny'
@@ -39,47 +39,46 @@ const authenticate = async (req, res, next) => {
     }
 };
 
-const authorize = (...roles) => {
-    return (req, res, next) => {
-        if (!roles.includes(req.user.role)) {
+const authorize = (req,res,next) => {
+        console.log(req.user);
+        if (req.user.Admin===false) {
             return res.status(403).json({
                 success: false,
                 message: 'Brak uprawnień do wykonania tej operacji'
             });
         }
         next();
-    };
 };
-
-const rateLimiter = {
-    windowMs: 15 * 60 * 1000, // 15 minut
-    maxAttempts: 5,
-    attempts: new Map(),
-
-    check: (req, res, next) => {
-        const ip = req.ip;
-        const now = Date.now();
-        const userAttempts = rateLimiter.attempts.get(ip) || [];
-
-        // Usuń stare próby
-        const validAttempts = userAttempts.filter(
-            timestamp => now - timestamp < rateLimiter.windowMs
-        );
-
-        if (validAttempts.length >= rateLimiter.maxAttempts) {
-            return res.status(429).json({
-                success: false,
-                message: 'Zbyt wiele prób. Spróbuj ponownie później.'
-            });
-        }
-
-        rateLimiter.attempts.set(ip, [...validAttempts, now]);
-        next();
-    }
-};
-
+//
+// const rateLimiter = {
+//     windowMs: 15 * 60 * 1000, // 15 minut
+//     maxAttempts: 5,
+//     attempts: new Map(),
+//
+//     check: (req, res, next) => {
+//         const ip = req.ip;
+//         const now = Date.now();
+//         const userAttempts = rateLimiter.attempts.get(ip) || [];
+//
+//         // Usuń stare próby
+//         const validAttempts = userAttempts.filter(
+//             timestamp => now - timestamp < rateLimiter.windowMs
+//         );
+//
+//         if (validAttempts.length >= rateLimiter.maxAttempts) {
+//             return res.status(429).json({
+//                 success: false,
+//                 message: 'Zbyt wiele prób. Spróbuj ponownie później.'
+//             });
+//         }
+//
+//         rateLimiter.attempts.set(ip, [...validAttempts, now]);
+//         next();
+//     }
+// };
+//
 module.exports = {
     authenticate,
     authorize,
-    rateLimiter
+    //rateLimiter
 };

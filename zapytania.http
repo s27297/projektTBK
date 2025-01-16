@@ -1,0 +1,317 @@
+### GET request to example server
+GET https://examples.http-client.intellij.net/get
+    ?generated-in=WebStorm
+
+###POST users/register(register za pomoca email)
+POST http://localhost:5000/users/register
+Content-Type: application/json
+
+{
+  "name": "firsewrww",
+  "email": "2wwqqddddjbjdqqwqqqww@2.com",
+  "password": "qqqqq",
+  "login": "qqqqqqwww",
+  "Admin": true
+}
+
+###POST auth/login(login do applikacji)
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{
+  "password":"qqqqq",
+  "login":"qqqqqqw"
+}
+
+###POST auth/logout(wylogowanie z applikacji
+POST http://localhost:5000/auth/logout
+
+###GET users/{id}/profile(Pobieranie  profilu użytkownika)
+GET http://localhost:5000/users/67892f76429e063852727e02/profile
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
+
+###PUT users/{id}/profile(aktualizacja profilu użytkownika)
+PUT http://localhost:5000/users/67892f76429e063852727e02/profile
+Content-Type: application/json
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
+
+{
+  "name": "firqw",
+  "password": "wwww",
+  "wiek": 17
+}
+
+###PATCH users/{id{/settings Zarządzanie ustawieniami konta użytkownika
+PATCH http://localhost:5000/users/6784c68bbafd0382c8fa5914/settings
+Content-Type: application/json
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
+
+{
+  "darkmode": true
+}
+###PATCH users/{id{/preferences Zarządzanie preferencjami konta użytkownika
+PATCH http://localhost:5000/users/67895c7a3c48576b336cfe3f/preferences
+Content-Type: application/json
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
+
+{
+"darkmode": true
+}
+
+###POST /friends Dodawanie do znajomych
+POST http://localhost:5000/friends
+Content-Type: application/json
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
+
+{
+  "login":"qqqqqq"
+}
+
+###GET /friends pobiranie znajomych
+GET http://localhost:5000/friends
+Content-Type: application/json
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
+
+{
+  "accepted": false
+}
+
+###DELETE /friends usunete ze znajomych
+DELETE http://localhost:5000/friends
+Content-Type: application/json
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
+
+{
+  "login":"qqqqqq"
+}
+
+###PATCH /friends/{id} Akceptowanie lub odrzucanie zaproszeń do znajomych
+PATCH http://localhost:5000/friends/678937a95b550d3833a38c3d
+
+
+###DELETE /friends/{id}  odrzucanie zaproszeń do znajomych
+DELETE http://localhost:5000/friends/67893840b664cbeb9e1365c9
+Content-Type: application/json
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
+
+
+###GET /messages przeglądanie prywatnych wiadomości
+GET http://localhost:5000/messages
+Content-Type: application/json
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
+
+{
+  "to": "67892fe35f939807ecd49c50"
+}
+
+###POST /messages Wysyłanie prywatnych wiadomości
+POST http://localhost:5000/messages
+Content-Type: application/json
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
+
+{
+  "to": "67892fe35f939807ecd49c50",
+  "text": "fdsfsdfssad"
+}
+
+
+###PATCH /messages/{id} Edytowanie  wiadomości
+PATCH http://localhost:5000/messages/67893a3cacd94bb00362e330
+Content-Type: application/json
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
+
+{
+
+  "text": "sad"
+}
+###DELETE /messages/{id} usuwanie wiadomości
+DELETE http://localhost:5000/messages/67893a3eacd94bb00362e333
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
+
+###GET /groups  przeglądanie grup
+GET http://localhost:5000/groups
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODJkYTQ0NjY3NWU4NjlhYThiNGQ1ZSIsImlhdCI6MTczNjYyODgwNCwiZXhwIjoxNzM2NjcyMDA0fQ.m42X340iUaQfwdDcRaE06cCU5E-abTaqFiqTBrHWzms
+Content-Type: application/json
+
+{
+  "user": "67892f76429e063852727e02"
+}
+###POST /groups Tworzenie  grup
+POST http://localhost:5000/groups
+Content-Type: application/json
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODJkYTQ0NjY3NWU4NjlhYThiNGQ1ZSIsImlhdCI6MTczNjYyODgwNCwiZXhwIjoxNzM2NjcyMDA0fQ.m42X340iUaQfwdDcRaE06cCU5E-abTaqFiqTBrHWzms
+
+{
+  "name": "koty"
+}
+
+###PUT /groups/{id} Edytowanie  grup
+PUT http://localhost:5000/groups/67893cdfe7f99f892b201b71
+Content-Type: application/json
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODJkYTQ0NjY3NWU4NjlhYThiNGQ1ZSIsImlhdCI6MTczNjYyODgwNCwiZXhwIjoxNzM2NjcyMDA0fQ.m42X340iUaQfwdDcRaE06cCU5E-abTaqFiqTBrHWzms
+
+{
+  "name": "cats"
+}
+
+###DELETE /groups/{id}  usuwanie grup
+DELETE http://localhost:5000/groups/67893c02fd8a72078fb6ece1
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODJkYTQ0NjY3NWU4NjlhYThiNGQ1ZSIsImlhdCI6MTczNjYyODgwNCwiZXhwIjoxNzM2NjcyMDA0fQ.m42X340iUaQfwdDcRaE06cCU5E-abTaqFiqTBrHWzms
+
+###PATCH /groups/{id}/members Dodawanie  członków grupy
+PATCH http://localhost:5000/groups/67893cff2779838b436d595c/members
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODJkYTQ0NjY3NWU4NjlhYThiNGQ1ZSIsImlhdCI6MTczNjYyODgwNCwiZXhwIjoxNzM2NjcyMDA0fQ.m42X340iUaQfwdDcRaE06cCU5E-abTaqFiqTBrHWzms
+Content-Type: application/json
+
+{
+  "member": "67892fe35f939807ecd49c50"
+}
+###DELETE /groups/{id}/members usuwanie członków grupy
+DELETE http://localhost:5000/groups/67893cff2779838b436d595c/members
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODJkYTQ0NjY3NWU4NjlhYThiNGQ1ZSIsImlhdCI6MTczNjYyODgwNCwiZXhwIjoxNzM2NjcyMDA0fQ.m42X340iUaQfwdDcRaE06cCU5E-abTaqFiqTBrHWzms
+Content-Type: application/json
+
+{
+  "member": "67892fe35f939807ecd49c50"
+}
+
+### POST /posts Tworzenie  postów
+POST http://localhost:5000/posts
+Content-Type: application/json
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
+
+{
+
+  "header": "asd",
+  "text": "asfasfafasdas",
+  "share": "All"
+}
+### GET /posts  przeglądanie postów
+GET http://localhost:5000/posts
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
+###PUT /posts/{id} Edytowanie postów
+PUT http://localhost:5000/posts/67894060f0df645c0e89337c
+Content-Type: application/json
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
+
+{
+  "header": "ass",
+  "text": "ass",
+  "share": "None"
+}
+
+###DELETE /posts/{id}  usuwanie postów
+DELETE http://localhost:5000/posts/67894061f0df645c0e893381
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
+
+
+###POST /posts/{id}/comments Dodawanie komentarzy do postów
+POST http://localhost:5000/posts/67894060f0df645c0e89337c/comments
+Content-Type: application/json
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
+
+{
+  "tagged": "678943b21d04d75a0a6b443d",
+  "text": "werre"
+}
+###DELETE /posts/{id}/comments  usuwanie komentarzy do postów
+DELETE http://localhost:5000/posts/678943b31d04d75a0a6b4442/comments
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
+
+###PUT /posts/{id}/comments  edytowanie  komentarzy do postów
+PUT http://localhost:5000/posts/678943b31d04d75a0a6b4442/comments
+Content-Type: application/json
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
+
+{
+  "text": "wedve"
+}
+###PUT /posts/{id}/likes Polubienia postów
+PUT http://localhost:5000/posts/67894060f0df645c0e89337c/likes
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
+
+
+###GET /events zarządzanie wydarzeniami
+GET http://localhost:5000/events
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
+
+###POST /events Tworzenie  wydarzeniami
+POST http://localhost:5000/events
+Content-Type: application/json
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
+
+{
+  "date": "2025-01-26T15:17:23.821Z",
+  "name": "qwewqe",
+  "text": "dasda"
+}
+
+###PUT event/{id} Edytowanie wydarzeń
+PUT http://localhost:5000/events/678945c72703ba1409ba5b3e
+Content-Type: application/json
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
+
+{
+  "name": "sqwewqe",
+  "text": "dddda"
+}
+
+###DELETE event/{id}  usuwanie wydarzeń
+DELETE http://localhost:5000/events/678945c72703ba1409ba5b3e
+
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
+###PATCH event/{id}/attendees Dodawanie i usuwanie uczestników wydarzeń
+PATCH http://localhost:5000/events/678945c72703ba1409ba5b3e/attendees
+Content-Type: application/json
+
+{
+  "member": "67892fdd5f939807ecd49c4b"
+}
+###GET /admin/users  pobieranie wszystkich użytkowników\
+GET http://localhost:5000/admin/users
+
+###PUT /admin/users/{id}  updatowanie ussera
+PUT http://localhost:5000/admin/users/67892fdd5f939807ecd49c4b
+Content-Type: application/json
+
+{
+  "name": "cattac"
+}
+###DELETE /admin/users/{id}  deletowanie usera
+DELETE http://localhost:5000/admin/users/67892fe35f939807ecd49c50
+###POST /admin/users/{id}  refreshowanie usera
+POST http://localhost:5000/admin/users/67892fe35f939807ecd49c50
+
+###GET /admin/reports  Generowanie raportów dotyczących użytkowników, postów, aktywności grup
+GET http://localhost:5000/admin/reports
+
+###GET /admin/content  pobieranie postow
+GET http://localhost:5000/admin/content
+
+###DELETE /admin/content/post:id  pobieranie postow
+DELETE http://localhost:5000/admin/content/post/67894060f0df645c0e89337c
+
+###GET /admin/groups  pobieranie postow
+GET http://localhost:5000/admin/groups
+
+###PUT /admin/groups:id  pobieranie postow
+PUT http://localhost:5000/admin/groups/67893cdfe7f99f892b201b71
+Content-Type: application/json
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODJkYTQ0NjY3NWU4NjlhYThiNGQ1ZSIsImlhdCI6MTczNjYyODgwNCwiZXhwIjoxNzM2NjcyMDA0fQ.m42X340iUaQfwdDcRaE06cCU5E-abTaqFiqTBrHWzms
+
+{
+  "name": "catshb"
+}
+###DELETE /admin/groups:id  pobieranie postow
+DELETE http://localhost:5000/admin/groups/67893cdfe7f99f892b201b71
+
+###GET history/changes Przeglądanie historii zmian postów i grup
+GET http://localhost:5000/history/changes
+### PUT /posts/{id}/share Udostępnianie postów innym użytkownikom
+PUT http://localhost:5000/posts/6784da079916ede7619c3275/share
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
+
+{
+  "share":"All"
+}

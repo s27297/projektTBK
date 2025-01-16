@@ -5,10 +5,10 @@ const User = require('../schemas/userSchema');
 const postsController = require('../controllers/postsController');
 const {authenticate} = require("../auth/authMiddleware");
 
-router.get('/', (req, res) => {
-    res.send('welcome');
-})
+
 router.use(authenticate);
+//get posts of a user ()
+router.get("/", postsController.getPosts);
 
 //add post to user (user,text,header,{share||All} in body)
 router.post("/", postsController.newPost);

@@ -60,6 +60,7 @@ module.exports.editMessage= async (req, res) => {
         const message=await Message.findByIdAndUpdate(id,{$set:{text:text}},{runValidators:true});
         if(!message)
            return  res.status(404).json({success:false,data:"message not found"});
+        message.text=text
         res.status(200).json({success:true,data:message});
     } catch (err) {
         if(err.name === 'ValidationError'){

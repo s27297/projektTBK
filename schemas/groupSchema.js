@@ -12,7 +12,7 @@ const groupSchema=new Schema({
     participants: {type:Array}
 
 
-})
+},{versionKey:false})
 
 let groups=mongoose.model('Groups',groupSchema)
 

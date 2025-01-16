@@ -4,17 +4,38 @@ const mongoose = require('mongoose');
 const User = require('../schemas/userSchema');
 const Posts = require('../schemas/postsSchema');
 const Comment = require('../schemas/commentSchema');
+const History = require("../schemas/historySchema");
 
 
 
 
 
-//new user
+module.exports.getPosts= async (req, res) => {
+// Destrukturyzacja danych z ciała żądania.
+    console.log("get Post")
+    const user=req.body.user||req.user.id
+    const isAdmin=req.user.Admin;
+    try {
+        let posts
+        if(isAdmin){
+             posts = await Posts.find()
+        }
+      else
+             posts = await Posts.find({user:user})
+        if(!posts.length)
+            return res.status(404).json({success:false,data:"posts not found"});
+        res.status(200).json({success:true,data:posts});
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ error: "Wystąpił błąd podczas pobierania posta." });
+    }
+}
+
 module.exports.newPost= async (req, res) => {
 // Destrukturyzacja danych z ciała żądania.
     console.log("new Post")
     const { header,text,share} = req.body;
-    const user=req.user.id.toString()
+    const user=req.user.id
     console.log(header,text,user,share);
     try {
 
@@ -26,8 +47,14 @@ module.exports.newPost= async (req, res) => {
                 "share":share||"All"
             });
 
-
+        console.log(posts)
         await posts.save();
+        const history=new History({
+            user:user,
+            objekt:"post",
+            action:"created post"
+        })
+        await history.save()
         res.send("post zapisany pomyślnie.");
     } catch (err) {
         if(err.name === 'ValidationError'){
@@ -56,8 +83,13 @@ module.exports.editPost= async (req, res) => {
         const posts=await Posts.findByIdAndUpdate(id,{$set:{"header":header,"text":text,"share":share}},{runValidators:true})
         if(!posts)
             return res.status(404).json({success:false,data:"post nie znalazony"});
-        else
-            res.status(200).json({success:true,data:posts});
+        const history=new History({
+            user:req.user.id,
+            objekt:"post",
+            action:"changed post",
+        })
+        await history.save()
+        res.status(200).json({success:true,data:posts});
     } catch (err) {
         if(err.name === 'ValidationError'){
             const messages =Object.values(err.errors).map(value => value.message)
@@ -80,7 +112,12 @@ module.exports.deletePost= async (req, res) => {
 
         const posts=await Posts.findByIdAndDelete(id)
 
-
+        const history=new History({
+            user:req.user.id,
+            objekt:"post",
+            action:"deleted post"
+        })
+        await history.save()
         res.status(200).json({success:true,data:"post usuniety"});
     } catch (err) {
         console.log(err);
@@ -91,7 +128,7 @@ module.exports.deletePost= async (req, res) => {
 module.exports.addLike= async (req, res) => {
     const id=req.params.id;
     // const {tryToLike}=req.body
-    const tryToLike=req.user.id.toString()
+    const tryToLike=req.user.id
     let like=false
 
     try{
@@ -109,15 +146,25 @@ module.exports.addLike= async (req, res) => {
                 const likedPost=await Posts.findByIdAndUpdate(id,{$push:{likes:tryToLike}})
                 if(!likedPost)
                     return res.status(400).json({success: false, data: "nie udalo zrobic like"});
-                else
-                    return res.status(200).json({success: true, data: "liked"});
+                const history=new History({
+                    user:req.user.id,
+                    objekt:"post",
+                    action:"liked post"
+                })
+                await history.save()
+                return res.status(200).json({success: true, data: "liked"});
             }
             else{
                 const disLikedPost=await Posts.findByIdAndUpdate(id,{$pull:{likes:tryToLike}})
                 if(!disLikedPost)
                     return res.status(400).json({success: false, data: "nie udalo zrobic disLike"});
-                else
-                    return res.status(200).json({success: true, data: "disliked"});
+                const history=new History({
+                    user:req.user.id,
+                    objekt:"post",
+                    action:"disliked post"
+                })
+                await history.save()
+                return res.status(200).json({success: true, data: "disliked"});
             }
         }
         }catch(err){
@@ -162,7 +209,13 @@ module.exports.addComment= async (req, res) => {
         else {
            const comment=new Comment({post:id,text:text,tagged:tagged,user:user});
            await comment.save()
-           return res.status(200).json({success: true, data: "comment zapisany pomyslne: "})
+            const history=new History({
+                user:req.user.id,
+                objekt:"post",
+                action:"added comment"
+            })
+            await history.save()
+            return res.status(200).json({success: true, data: "comment zapisany pomyslne: "})
         }
     }catch(err){
         console.log(err)
@@ -186,8 +239,13 @@ module.exports.deleteComment= async (req, res) => {
         const comment=await Comment.findByIdAndDelete(id)
         if(!comment)
             return res.status(404).json({success: false, data: "comment nie udalo sie zdeletowac "})
-        else
-            return res.status(200).json({success: true, data: "comment deleted pomyslne: "})
+        const history=new History({
+            user:req.user.id,
+            objekt:"post",
+            action:"deleted comment"
+        })
+        await history.save()
+        return res.status(200).json({success: true, data: "comment deleted pomyslne: "})
 
     }catch(err){
         console.log(err)
@@ -206,8 +264,13 @@ module.exports.editComment= async (req, res) => {
         const comment=await Comment.findByIdAndUpdate(id,{$set:{text:text}},{runValidators:true})
         if(!comment)
             return res.status(404).json({success: true, data: "comment nie udalo sie zeditowac "})
-        else
-            return res.status(200).json({success: true, data: "comment edieted pomyslne: "})
+        const history=new History({
+            user:req.user.id,
+            objekt:"post",
+            action:"eddited comment"
+        })
+        await history.save()
+        return res.status(200).json({success: true, data: "comment edieted pomyslne: "})
 
     }catch(err){
         console.log(err)

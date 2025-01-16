@@ -21,7 +21,7 @@ const postsSchema=new Schema({
     user:{
         type:Schema.Types.ObjectId,
         ref:"User",
-        required:[true,'User jest wymagane']
+        required:[true,'Users jest wymagane']
     },
     share:{
         type:String,
@@ -29,7 +29,7 @@ const postsSchema=new Schema({
         default:"All"
     }
 
-})
+},{versionKey:false})
 
 let posts=mongoose.model('Posts',postsSchema)
 

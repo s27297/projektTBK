@@ -201,3 +201,17 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODJkYTQ0N
 ###delete group
 DELETE http://localhost:5000/groups/6773f9c52872872122227885
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODJkYTQ0NjY3NWU4NjlhYThiNGQ1ZSIsImlhdCI6MTczNjYyODgwNCwiZXhwIjoxNzM2NjcyMDA0fQ.m42X340iUaQfwdDcRaE06cCU5E-abTaqFiqTBrHWzms
+
+###DELETE /groups/{id} Edytowanie i usuwanie grup
+DELETE http://localhost:5000/groups/6773f9c52872872122227885
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODJkYTQ0NjY3NWU4NjlhYThiNGQ1ZSIsImlhdCI6MTczNjYyODgwNCwiZXhwIjoxNzM2NjcyMDA0fQ.m42X340iUaQfwdDcRaE06cCU5E-abTaqFiqTBrHWzms
+
+
+#### edit share w poste
+#PUT http://localhost:5000/posts/6784da079916ede7619c3275/share
+#Content-Type: application/json
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
+#
+#{
+#  "share":"All"
+#}

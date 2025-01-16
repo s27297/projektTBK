@@ -8,28 +8,41 @@ const messagesRouter=require('./routers/messagesRouter');
 const groupsRouter=require('./routers/groupsRouter');
 const authRouter=require('./auth/authRoutes');
 const timestamping = require("./middleware");
+const addToken = require("./middleware");
+const friendsRouter=require('./routers/friendsRouter');
+const eventsRouter=require('./routers/eventsRouter');
+const adminRouter=require('./routers/adminRouter');
+const otherRouter=require('./routers/otherRouter');
+//szablony
+const pug=require('pug')
+const path=require('path');
+const morgan=require('morgan')
 
-// app.use((req,res,next)=>{
-//     const timestamp=new Date().toISOString()
-//     req.timestamp=timestamp
-//     console.log(timestamp);
-//     req.body.name.toUpperCase()
-//     res.append("timestamp",timestamp)
-//     next()
-// })
+app.set('view engine','pug');
+
+// app.static
+app.use(morgan('common',{immediate:true}));
+//let welcomePage=require('welcomePage');
 
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(timestamping);
+app.use(addToken)
+
+app.use('/friends', friendsRouter)
+app.use('/events', eventsRouter)
 app.use('/auth', authRouter)
 app.use('/users', userRouter)
 app.use('/posts', postsRouter)
 app.use('/messages', messagesRouter)
 app.use('/groups',groupsRouter)
+app.use('/admin',adminRouter)
+app.use('/',otherRouter)
+
 
 app.get('/',(req,res)=>{
-    res.status(200).json({data:'it is siec spolecznosciowa'});
+    res.render('welcomePage');
 })
 
 app.use((req,res)=>{

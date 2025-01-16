@@ -21,7 +21,7 @@ const messageSchema=new Schema({
         required:[true,'otrzymujacy jest wymagany']
     }
 
-})
+},{versionKey:false})
 
 let message=mongoose.model('Messages',messageSchema)
 
