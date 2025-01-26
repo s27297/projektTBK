@@ -16,7 +16,7 @@ router.post("/register", userController.newUser);
 
 router.use(authenticate);
 //wszystkie usery
-//router.get('/all', userController.allUsers);
+router.get('/all', userController.allUsers);
 //edit profile of a user  (name,email,password,login,opis,image OR wiek in body,id usera in path)
 router.put('/:id/profile',userController.updateProfile);
 //get user info (id usera in path)

@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const Group = require('../schemas/groupSchema');
 const History = require("../schemas/historySchema");
 
-
+const User = require('../schemas/userSchema');
 
 
 //get message
@@ -14,10 +14,11 @@ module.exports.getGroups= async (req, res) => {
     //const {user} = req.user;
     const user=req.body.user||req.user.id;
     const isAdmin=req.user.Admin;
-    try {let groups
-        if(isAdmin)
-            groups= await Group.find();
-        else
+    try {
+        let groups
+        // if(isAdmin)
+        //     groups= await Group.find();
+        // else
             groups= await Group.find({participants:user});
         if(!groups.length){
             return res.status(404).json({success:false,data:"groups not found"});
@@ -126,8 +127,14 @@ module.exports.addMemberToGroup= async (req, res) => {
     const id=req.params.id;
     console.log("add group member")
     const {member}=req.body
-    console.log(member)
+    console.log(member.length)
+    console.log(id)
     try {
+        if(member.length!==24)
+            return res.status(404).json({success:false,data:"id musi byc dlugosci 24 a nie "+member.length});
+        const user= await User.findById(member);
+        if(!user)
+            return  res.status(404).json({success:false,data:"user not found"});
         const group=await Group.findByIdAndUpdate(id,{$addToSet:{participants:member}});
         if(!group)
             return  res.status(404).json({success:false,data:"group not found"});

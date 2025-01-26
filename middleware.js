@@ -8,12 +8,13 @@ const timestamping=((req,res,next)=>{
     res.append("timestamp",timestamp)
     next()
 })
-
-const addToken=((req,res,next)=>{
-  const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODk1YzdhM2M0ODU3NmIzMzZjZmUzZiIsImlhdCI6MTczNzA1NTM1NCwiZXhwIjoxNzM3MDk4NTU0fQ.6ruZKISEcC3QFdzYVc-g_Dqe_PINaIvuTkYl2_S2ang"
-   req.headers.authorization='Bearer ' + token
-    console.log(req.headers.authorization)
-    next()
-})
-module.exports=[timestamping,addToken]
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODk1YzdhM2M0ODU3NmIzMzZjZmUzZiIsImlhdCI6MTczNzExOTU0NiwiZXhwIjoxNzM3MTYyNzQ2fQ.9mbVswyNLG_e994oLc_FtMQo1J1FXdPbheCu_sVg2hM
+// const addToken=((req,res,next)=>{
+    // const token= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODk1YzdhM2M0ODU3NmIzMzZjZmUzZiIsImlhdCI6MTczNzExOTU0NiwiZXhwIjoxNzM3MTYyNzQ2fQ.9mbVswyNLG_e994oLc_FtMQo1J1FXdPbheCu_sVg2hM"
+  // const token= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3OGE1YWI4ZTMxZmFiMzc5YTIwNzdhNyIsImlhdCI6MTczNzEyMDQ0MCwiZXhwIjoxNzM3MTYzNjQwfQ.29Xvrvxru-MzuRgZoVnaAgCTsd-vCymvPrigvVruj9o"
+  //  req.headers.authorization='Bearer ' + token
+    // console.log(req.headers.authorization)
+    // next()
+// })
+module.exports=[timestamping]
 

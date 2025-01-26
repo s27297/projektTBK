@@ -10,7 +10,7 @@ const { generateToken,decodeToken } = require('../auth/jwt');
 //////////////////////////////friends.router
 module.exports.getUserFriends= async (req, res) => {
     console.log("get User friends")
-const {accepted}=req.body||true;
+// const {accepted}=req.body||true;
     const id=req.user.id
 
     try {
@@ -18,13 +18,13 @@ const {accepted}=req.body||true;
         if(!user)
             res.status(404).json({success:false,data:"user not found"});
         const friends=await Friend.find
-        ({$or:[{"user1":user},{"user2":user}],accepted: accepted})
+        ({$or:[{"user1":user},{"user2":user}]})
         if(!friends.length)
             return res.status(404).json({success:false,data:"user has no friends"});
         let friendsIds=[]
         console.log(friends)
         friends.map((friend)=>{friend.user1.toString()!==id?friendsIds.push(friend.login1):friendsIds.push(friend.login2)})
-        res.status(200).json(friends);
+        res.status(200).json({success:true,data:friends});
     } catch (err) {
         console.log(err);
         res.status(500).json({ error: "Wystąpił błąd podczas pobieranie usera." });

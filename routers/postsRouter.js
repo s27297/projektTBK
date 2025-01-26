@@ -28,6 +28,8 @@ router.put("/:id/share", postsController.sharePost);
 //add comment to post (id posta in path, user,text,(tagged jezeli jest) in body)
 router.post("/:id/comments", postsController.addComment);
 
+router.get("/:id/comments", postsController.getComments);
+
 //delete comment  (id commenta in path)
 router.delete("/:id/comments", postsController.deleteComment);
 

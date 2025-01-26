@@ -9,6 +9,8 @@ router.use(authenticate);
 //get komentarze wyslane przez jednego usera innemu useru (from i to w body)
 router.get('/', messageController.getMessages)
 
+router.get('/users', messageController.getMessages)
+
 //add komentarz od usera do usera(from i to w body)
 router.post('/', messageController.addMessage)
 

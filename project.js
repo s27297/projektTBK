@@ -1,35 +1,40 @@
+require('dotenv').config()
 const express=require('express');
 const app=express();
 const bodyParser=require('body-parser');
 const mongoose=require('mongoose')
+const timestamping = require("./middleware");
+//routers
 const userRouter=require('./routers/userRouter');
 const postsRouter=require('./routers/postsRouter');
 const messagesRouter=require('./routers/messagesRouter');
 const groupsRouter=require('./routers/groupsRouter');
 const authRouter=require('./auth/authRoutes');
-const timestamping = require("./middleware");
-const addToken = require("./middleware");
 const friendsRouter=require('./routers/friendsRouter');
 const eventsRouter=require('./routers/eventsRouter');
 const adminRouter=require('./routers/adminRouter');
 const otherRouter=require('./routers/otherRouter');
+const bannedRouter=require('./routers/bannedRouter');
+//cors
+const cors=require("cors");
+
+app.use(cors({
+    origin: ['http://localhost:3000','http://localhost:3001'],
+    methods: '*',
+    allowedHeaders: ['Content-Type','Authorization']
+}))
 //szablony
-const pug=require('pug')
-const path=require('path');
-const morgan=require('morgan')
-
 app.set('view engine','pug');
-
-// app.static
-app.use(morgan('common',{immediate:true}));
-//let welcomePage=require('welcomePage');
-
+//midlewars
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(timestamping);
-app.use(addToken)
-
+// app.use(addToken)
+app.use((req,res,next)=>{
+    console.log(req.originalUrl);
+    next()
+})
 app.use('/friends', friendsRouter)
 app.use('/events', eventsRouter)
 app.use('/auth', authRouter)
@@ -38,6 +43,7 @@ app.use('/posts', postsRouter)
 app.use('/messages', messagesRouter)
 app.use('/groups',groupsRouter)
 app.use('/admin',adminRouter)
+app.use('/banned',bannedRouter)
 app.use('/',otherRouter)
 
 
@@ -56,7 +62,7 @@ app.use((err, req, res, next) => {
 
 
 
-const dbURI="mongodb://localhost:27017/userdb"
+const dbURI=process.env.MONGODB_URI
 
 // Nawiązywanie połączenia z MongoDB
 mongoose.connect(dbURI, {

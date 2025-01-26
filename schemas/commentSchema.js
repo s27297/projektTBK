@@ -20,7 +20,7 @@ const commentSchema=new Schema({
     text: {
         type: String,
         required: [true, 'Text jest obowiazkowy'],
-        minLength: [5, "text musi byc wiekszy od 4 znakow"]
+        minLength: [1, "text musi byc wiekszy od 0 znakow"]
     },
 },{versionKey:false}
 )

@@ -16,7 +16,7 @@ const authenticate = async (req, res, next) => {
 
         // Pobranie i weryfikacja tokenu
         const token = authHeader.split(' ')[1];
-        console.log(token);
+        // console.log(token);
         const decoded = verifyToken(token);
 
         // Sprawdzenie czy użytkownik istnieje i jest aktywny

@@ -13,15 +13,14 @@ const History = require("../schemas/historySchema");
 module.exports.getPosts= async (req, res) => {
 // Destrukturyzacja danych z ciała żądania.
     console.log("get Post")
-    const user=req.body.user||req.user.id
+    const user=req.query.user||req.user._id
     const isAdmin=req.user.Admin;
+    console.log(user)
+    console.log("Posty usera   "+user)
+
     try {
         let posts
-        if(isAdmin){
-             posts = await Posts.find()
-        }
-      else
-             posts = await Posts.find({user:user})
+        posts = await Posts.find({user:user})
         if(!posts.length)
             return res.status(404).json({success:false,data:"posts not found"});
         res.status(200).json({success:true,data:posts});
@@ -55,7 +54,7 @@ module.exports.newPost= async (req, res) => {
             action:"created post"
         })
         await history.save()
-        res.send("post zapisany pomyślnie.");
+        res.status(200).json({success:true,data:"post zapisany pomyślnie."});
     } catch (err) {
         if(err.name === 'ValidationError'){
             const messages =Object.values(err.errors).map(value => value.message)
@@ -128,7 +127,8 @@ module.exports.deletePost= async (req, res) => {
 module.exports.addLike= async (req, res) => {
     const id=req.params.id;
     // const {tryToLike}=req.body
-    const tryToLike=req.user.id
+    const tryToLike=req.user._id
+    console.log("1324"+req.user._id)
     let like=false
 
     try{
@@ -139,9 +139,12 @@ module.exports.addLike= async (req, res) => {
             const post=await Posts.findById(id)
             if(!post)
                 return res.status(404).json({success:false,data:"post nie znalazony"});
-            if(tryToLike==post.user)
+            console.log("try     "+tryToLike)
+            console.log("post   "+post.user)
+
+            if(tryToLike.toString()===post.user.toString())
                 return res.status(400).json({success:false,data:"you are the owner of the post"});
-            post.likes.map(l=>{if(l===tryToLike){like=true}})
+            post.likes.map(l=>{if(l.toString()===tryToLike.toString()){like=true}})
             if(!like) {
                 const likedPost=await Posts.findByIdAndUpdate(id,{$push:{likes:tryToLike}})
                 if(!likedPost)
@@ -279,5 +282,29 @@ module.exports.editComment= async (req, res) => {
             return res.status(400).json({success:false,errors:messages});
         }
         return res.status(500).json({success:false,data:"wystapil blad podczas editowania commentarza"});
+    }
+}
+
+
+module.exports.getComments= async (req, res) => {
+    const id=req.params.id;
+    // const {text}=req.body
+    try{
+        // const checkOwner= await Comment.findById(id)
+//a
+
+        const comments=await Comment.find({post:id})
+        if(!comments||!comments.length)
+            return res.status(404).json({success: false, data: "comment nie udalo sie znalezć "})
+
+        return res.status(200).json({success: true, data: comments})
+
+    }catch(err){
+        console.log(err)
+        if(err.name === 'ValidationError'){
+            const messages =Object.values(err.errors).map(value => value.message)
+            return res.status(400).json({success:false,errors:messages});
+        }
+        return res.status(500).json({success:false,data:"wystapil blad podczas pobierania commentarza"});
     }
 }

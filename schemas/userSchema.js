@@ -11,7 +11,7 @@ const userSchema=new Schema({
     nazwisko:{type:String,
         minlength:[3,'imie musimiec co najmniej 3 znaki']},
     opis:{type:String},
-    wiek:{type:Number,min:[10,"wiek musi byc wiekszy od 1"],max:[200,"wiek musi byc mniejszy od 200"]},
+    wiek:{type:Number,min:[10,"wiek musi byc wiekszy od 10"],max:[200,"wiek musi byc mniejszy od 200"]},
     image:{data:Buffer,contentType:"String"},
     email: {
         type: String,
@@ -36,9 +36,10 @@ const userSchema=new Schema({
         type:Boolean,
         default:false,
     },
-    lastLogout:{type:Date,default:Date.now},
+    // lastLogout:{type:Date,default:Date.now},
     darkmode:{type:Boolean,default:false},
     isActive:{type:Boolean,default:true},
+    miasto:{type:String,default:""},
     // friends:{type:Array}
 },{versionKey:false})
 

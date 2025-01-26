@@ -9,7 +9,7 @@ class AuthController {
     async login(req, res, next) {
         try {
             const { login, password } = req.body;
-
+console.log(login, password);
             // Sprawdzenie czy podano wymagane pola
             if (!login || !password) {
                 return res.status(400).json({
@@ -43,7 +43,7 @@ class AuthController {
             }
 
             // Aktualizacja ostatniego logowania
-          //  user.lastLogin = new Date();
+           // user.lastLogin = new Date();
            // await user.save();
 
             // Generowanie tokenu
@@ -110,6 +110,9 @@ class AuthController {
     async logout(req, res) {
         // W przypadku JWT, właściwe wylogowanie powinno być obsługiwane po stronie klienta
         // poprzez usunięcie tokenu. Tutaj możemy tylko potwierdzić operację.
+        let user=req.user
+        // user.lastLogout=Date.now()
+        // user.save()
         const history=new History({
             user:req.user.id,
             objekt:"user",

@@ -1,17 +1,17 @@
-### GET request to example server
-GET https://examples.http-client.intellij.net/get
-    ?generated-in=WebStorm
+
+###GET users/all(Pobieranie  wszystkiech użytkownikow)
+GET http://localhost:5000/users/all
 
 ###POST users/register(register za pomoca email)
 POST http://localhost:5000/users/register
 Content-Type: application/json
 
 {
-  "name": "firsewrww",
-  "email": "2wwqqddddjbjdqqwqqqww@2.com",
+  "name": "firsfdsfdsewssrww",
+  "email": "2wwsdfdsqqddddjabjdqqsswqq@qww2.com",
   "password": "qqqqq",
-  "login": "qqqqqqwww",
-  "Admin": true
+  "login": "qqq",
+  "Admin": false
 }
 
 ###POST auth/login(login do applikacji)
@@ -20,18 +20,18 @@ Content-Type: application/json
 
 {
   "password":"qqqqq",
-  "login":"qqqqqqw"
+  "login":"qqqqqqsdwww"
 }
 
 ###POST auth/logout(wylogowanie z applikacji
 POST http://localhost:5000/auth/logout
 
 ###GET users/{id}/profile(Pobieranie  profilu użytkownika)
-GET http://localhost:5000/users/67892f76429e063852727e02/profile
+GET http://localhost:5000/users/678a5a0092f0c2206b6f4f91/profile
 #Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
 
 ###PUT users/{id}/profile(aktualizacja profilu użytkownika)
-PUT http://localhost:5000/users/67892f76429e063852727e02/profile
+PUT http://localhost:5000/users/678a5a0092f0c2206b6f4f91/profile
 Content-Type: application/json
 #Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
 
@@ -42,7 +42,7 @@ Content-Type: application/json
 }
 
 ###PATCH users/{id{/settings Zarządzanie ustawieniami konta użytkownika
-PATCH http://localhost:5000/users/6784c68bbafd0382c8fa5914/settings
+PATCH http://localhost:5000/users/678a5ab8e31fab379a2077a7/settings
 Content-Type: application/json
 #Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
 
@@ -86,11 +86,11 @@ Content-Type: application/json
 }
 
 ###PATCH /friends/{id} Akceptowanie lub odrzucanie zaproszeń do znajomych
-PATCH http://localhost:5000/friends/678937a95b550d3833a38c3d
+PATCH http://localhost:5000/friends/678a5b2f2d94df04b357f4a8
 
 
 ###DELETE /friends/{id}  odrzucanie zaproszeń do znajomych
-DELETE http://localhost:5000/friends/67893840b664cbeb9e1365c9
+DELETE http://localhost:5000/friends/678a5b042d94df04b357f49e
 Content-Type: application/json
 #Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
 
@@ -159,12 +159,12 @@ DELETE http://localhost:5000/groups/67893c02fd8a72078fb6ece1
 #Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODJkYTQ0NjY3NWU4NjlhYThiNGQ1ZSIsImlhdCI6MTczNjYyODgwNCwiZXhwIjoxNzM2NjcyMDA0fQ.m42X340iUaQfwdDcRaE06cCU5E-abTaqFiqTBrHWzms
 
 ###PATCH /groups/{id}/members Dodawanie  członków grupy
-PATCH http://localhost:5000/groups/67893cff2779838b436d595c/members
+PATCH http://localhost:5000/groups/678a5b7f2d94df04b357f4ca/members
 #Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODJkYTQ0NjY3NWU4NjlhYThiNGQ1ZSIsImlhdCI6MTczNjYyODgwNCwiZXhwIjoxNzM2NjcyMDA0fQ.m42X340iUaQfwdDcRaE06cCU5E-abTaqFiqTBrHWzms
 Content-Type: application/json
 
 {
-  "member": "67892fe35f939807ecd49c50"
+  "member": "67892fe35f939807ecd490"
 }
 ###DELETE /groups/{id}/members usuwanie członków grupy
 DELETE http://localhost:5000/groups/67893cff2779838b436d595c/members
@@ -188,15 +188,15 @@ Content-Type: application/json
 }
 ### GET /posts  przeglądanie postów
 GET http://localhost:5000/posts
-#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODkyZmUzNWY5Mzk4MDdlY2Q0OWM1MCIsImlhdCI6MTczNzY2MDk3NCwiZXhwIjoxNzM4MjY1Nzc0fQ.5HAAI8nnnBS-qnSX1QZGr9ArhAUNTc7FORRlZqPlHQ8g
+
 ###PUT /posts/{id} Edytowanie postów
-PUT http://localhost:5000/posts/67894060f0df645c0e89337c
+PUT http://localhost:5000/posts/678a5bb82d94df04b357f4dc
 Content-Type: application/json
-#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
 
 {
   "header": "ass",
-  "text": "ass",
+  "text": "assdhjdshjs",
   "share": "None"
 }
 
@@ -257,7 +257,7 @@ Content-Type: application/json
 }
 
 ###DELETE event/{id}  usuwanie wydarzeń
-DELETE http://localhost:5000/events/678945c72703ba1409ba5b3e
+DELETE http://localhost:5000/events/678a5bf12d94df04b357f4eb
 
 #Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODRjNjhiYmFmZDAzODJjOGZhNTkxNCIsImlhdCI6MTczNjc1NTc0OCwiZXhwIjoxNzM2Nzk4OTQ4fQ.lQM1SEX3dJbU1kalmrPaU4dc2xm_pQdcrhmHJVIKMLM
 ###PATCH event/{id}/attendees Dodawanie i usuwanie uczestników wydarzeń
@@ -278,7 +278,7 @@ Content-Type: application/json
   "name": "cattac"
 }
 ###DELETE /admin/users/{id}  deletowanie usera
-DELETE http://localhost:5000/admin/users/67892fe35f939807ecd49c50
+DELETE http://localhost:5000/admin/users/678a5ab8e31fab379a2077a7
 ###POST /admin/users/{id}  refreshowanie usera
 POST http://localhost:5000/admin/users/67892fe35f939807ecd49c50
 

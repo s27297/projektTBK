@@ -16,7 +16,7 @@ module.exports.newUser= async (req, res) => {
         const unique= await User.findOne({$or:[ {"email":email},{"login":login}] })
         if(unique){
           //  console.log(unique);
-            return res.status(401).json({success:false,data:"login or email already exists"});
+            return res.status(403).json({success:false,data:"login or email already exists"});
         }
         const user = new User(
             {
@@ -55,7 +55,7 @@ module.exports.allUsers=  async (req, res) => {
 // Wstawiamy pracownika do bazy danych.
         const user=await User.find()
         user.map(u=>u.password=null)
-        res.status(200).json(user);
+        res.status(200).json({success:true,data:user});
     } catch (err) {
         console.log(err);
         res.status(500).json({ error: "Wystąpił błąd podczas pobieranie usera." });
@@ -85,20 +85,27 @@ module.exports.updateProfile= async (req, res) => {
 console.log(req.user.id.toString())
     const id=req.params.id
     console.log(id);
-    const {name, email,login,opis,wiek,image} = req.body;
+    const {name, email,login,opis,wiek,image,miasto} = req.body;
     try {
 
         if(!(id===req.user.id.toString()||req.user.Admin))
             return  res.status(401).json({success:false,data:"Nie masz dostępu do edycji tego konta"});
-        const unique= await User.findOne({$or:[ {"email":email},{"login":login}] })
-        if(unique){
+        const iAm= await User.findById( id )
+        let uniqueLogin=null;
+        let uniqueEmail=null;
+        if(iAm.login!==login)
+            uniqueEmail= await User.findOne( {"email":email} );
+        if(iAm.email!==email)
+
+         uniqueLogin= await User.findOne({"login":login} )
+        if(uniqueLogin||uniqueEmail){
             //  console.log(unique);
             return res.status(401).json({success:false,data:"login or email already exists"});
         }
         if(!mongoose.Types.ObjectId.isValid(id))
             return  res.status(404).json({success:false,data:"podaj poprawny id"});
 
-        const user=await User.findByIdAndUpdate(id,{$set:{name,email,login,opis,wiek,image}})
+        const user=await User.findByIdAndUpdate(id,{$set:{name,email,login,opis,wiek,image,miasto}},{runValidators:true})
         if(!user)
             return  res.status(404).json({success:false,data:"user o podanym id nie istnieje"});
         else {

@@ -7,7 +7,7 @@ const User = require('../schemas/userSchema');
 
 
 module.exports.getReport= async (req, res) => {
-console.log(req.user.Admin);
+// console.log(req.user.Admin);
     console.log("get report")
     const date=req.body.date||"2025-01-01T15:17:23.821Z"
     try {

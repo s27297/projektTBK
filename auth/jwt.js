@@ -1,10 +1,10 @@
 const jwt = require('jsonwebtoken');
-const Secret="cat is the token"
+const Secret=process.env.JWT_SECRET;
 const generateToken = (payload) => {
     return jwt.sign(
         payload,
         Secret,
-        { expiresIn: "12h" }
+        { expiresIn: "7d" }
     );
 };
 
@@ -14,6 +14,7 @@ const verifyToken = (token) => {
         return jwt.verify(token,Secret);
     } catch (error) {
         if (error.name === 'TokenExpiredError') {
+            console.log(error);
             throw new Error('Token wygasł');
         }
         if (error.name === 'JsonWebTokenError') {

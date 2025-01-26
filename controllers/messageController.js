@@ -28,6 +28,24 @@ module.exports.getMessages= async (req, res) => {
     }
 }
 
+module.exports.getMessages= async (req, res) => {
+
+    console.log("get messages users")
+
+    const from=req.user.id.toString();
+    try {
+        const messages= await Message.find({$or:[{from:from},{to:from}]});
+        if(!messages.length){
+            return res.status(404).json({success:false,data:"messages not found"});
+        }
+        res.status(200).json({success:true,data:messages});
+    } catch (err) {
+
+        console.log(err);
+        res.status(500).json({ error: "Wystąpił błąd podczas otzymuwania message." });
+    }
+}
+
 module.exports.addMessage= async (req, res) => {
 
     console.log("add messages")
