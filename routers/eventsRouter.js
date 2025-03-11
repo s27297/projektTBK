@@ -4,8 +4,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
-const EventsController = require('../controllers/EventsController');
-const {authenticate} = require("../auth/authMiddleware");
+const EventsController = require('../controllers/eventsController.js');
+const {authenticate} = require("../auth/authMiddleware.js");
 
 
 router.use(authenticate);

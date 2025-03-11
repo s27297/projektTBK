@@ -1,10 +1,10 @@
 
 const mongoose = require('mongoose');
 
-const User = require('../schemas/userSchema');
-const Friend = require('../schemas/friendsSchema');
-const { generateToken,decodeToken } = require('../auth/jwt');
-const History = require("../schemas/historySchema");
+const User = require('../schemas/userSchema.js');
+const Friend = require('../schemas/friendsSchema.js');
+const { generateToken,decodeToken } = require('../auth/jwt.js');
+const History = require("../schemas/historySchema.js");
 
 
 

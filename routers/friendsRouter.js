@@ -1,9 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
-const User = require('../schemas/userSchema');
-const friendsController = require('../controllers/friendsController');
-const { authenticate } = require('../auth/authMiddleware');
+const User = require('../schemas/userSchema.js');
+const friendsController = require('../controllers/friendsController.js');
+const { authenticate } = require('../auth/authMiddleware.js');
 
 router.use(authenticate);
 

@@ -1,9 +1,9 @@
 //./src/controllers/authController.js
-const User = require('../schemas/userSchema');
-const { generateToken ,decodeToken} = require('./jwt');
-const { comparePassword } = require('./passwordUtils');
-// const { promisify } = require('util');
-const History=require('../schemas/historySchema');
+const User = require('../schemas/userSchema.js');
+const { generateToken ,decodeToken} = require('./jwt.js');
+const { comparePassword } = require('./passwordUtils.js');
+const { promisify } = require('util');
+const History=require('../schemas/historySchema.js');
 class AuthController {
 
     async login(req, res, next) {

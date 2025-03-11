@@ -1,9 +1,9 @@
 
-const mongoose = require('mongoose');
-
-const User = require('../schemas/userSchema');
-const Message = require('../schemas/messageSchema');
-const Posts = require("../schemas/postsSchema");
+// const mongoose = require('mongoose');
+//
+// const User = require('../schemas/userSchema.js');
+const Message = require('../schemas/messageSchema.js');
+// const Posts = require("../schemas/postsSchema.js");
 
 
 

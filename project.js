@@ -3,23 +3,23 @@ const express=require('express');
 const app=express();
 const bodyParser=require('body-parser');
 const mongoose=require('mongoose')
-const timestamping = require("./middleware");
+const timestamping = require("./middleware.js");
 //routers
-const userRouter=require('./routers/userRouter');
-const postsRouter=require('./routers/postsRouter');
-const messagesRouter=require('./routers/messagesRouter');
-const groupsRouter=require('./routers/groupsRouter');
-const authRouter=require('./auth/authRoutes');
-const friendsRouter=require('./routers/friendsRouter');
-const eventsRouter=require('./routers/eventsRouter');
-const adminRouter=require('./routers/adminRouter');
-const otherRouter=require('./routers/otherRouter');
-const bannedRouter=require('./routers/bannedRouter');
+const userRouter=require('./routers/userRouter.js');
+const postsRouter=require('./routers/postsRouter.js');
+const messagesRouter=require('./routers/messagesRouter.js');
+const groupsRouter=require('./routers/groupsRouter.js');
+const authRouter=require('./auth/authRoutes.js');
+const friendsRouter=require('./routers/friendsRouter.js');
+const eventsRouter=require('./routers/eventsRouter.js');
+const adminRouter=require('./routers/adminRouter.js');
+const otherRouter=require('./routers/otherRouter.js');
+const bannedRouter=require('./routers/bannedRouter.js');
 //cors
 const cors=require("cors");
 
 app.use(cors({
-    origin: ['http://localhost:3000','http://localhost:3001'],
+    origin: ['http://localhost:3000','http://localhost:5000'],
     methods: '*',
     allowedHeaders: ['Content-Type','Authorization']
 }))
@@ -62,9 +62,10 @@ app.use((err, req, res, next) => {
 
 
 
-const dbURI="mongodb://localhost:27017/userdb"
+const dbURI=process.env.MONGODB_URI
 
 // Nawiązywanie połączenia z MongoDB
+
 mongoose.connect(dbURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true

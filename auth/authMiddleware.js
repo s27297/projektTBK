@@ -1,6 +1,6 @@
 //./src/middleware/authMiddleware.js
-const { verifyToken } = require('./jwt');
-const User = require('../schemas/userSchema');
+const { verifyToken } = require('./jwt.js');
+const User = require('../schemas/userSchema.js');
 
 const authenticate = async (req, res, next) => {
     try {

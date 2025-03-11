@@ -1,9 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
-const User = require('../schemas/userSchema');
-const postsController = require('../controllers/postsController');
-const {authenticate} = require("../auth/authMiddleware");
+const User = require('../schemas/userSchema.js');
+const postsController = require('../controllers/postsController.js');
+const {authenticate} = require("../auth/authMiddleware.js");
 
 
 router.use(authenticate);

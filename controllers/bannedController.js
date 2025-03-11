@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
-const {isObjectIdOrHexString} = require("mongoose");
-const History=require('../schemas/historySchema');
-const {authenticate} = require("../auth/authMiddleware");
-const User = require('../schemas/userSchema');
-const BannedUser = require('../schemas/notAcceptedTextSchema');
-const Banned = require("../schemas/notAcceptedTextSchema");
+// const mongoose = require('mongoose');
+// const {isObjectIdOrHexString} = require("mongoose");
+// const History=require('../schemas/historySchema');
+// const {authenticate} = require("../auth/authMiddleware");
+// const User = require('../schemas/userSchema');
+// const BannedUser = require('../schemas/notAcceptedTextSchema');
+const Banned = require("../schemas/notAcceptedTextSchema.js");
 
 
 

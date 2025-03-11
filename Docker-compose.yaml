@@ -1,0 +1,19 @@
+version: '3' # docker-compose version
+services: # services which our app going to use. (list of containers we want to create)
+  mongo: # container name
+    image: mongo # On which image container will build
+    ports:
+      - "27017:27017"
+
+  backend:
+    image: backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+  front:
+    image: front
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend

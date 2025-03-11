@@ -1,8 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
-const groupsController = require('../controllers/groupsController');
-const {authenticate} = require("../auth/authMiddleware");
+const groupsController = require('../controllers/groupsController.js');
+const {authenticate} = require("../auth/authMiddleware.js");
 
 router.use(authenticate);
 

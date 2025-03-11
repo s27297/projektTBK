@@ -1,12 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
-const User = require('../schemas/userSchema');
-const userController = require('../controllers/userController');
-const { authenticate,authorize } = require('../auth/authMiddleware');
-const adminController = require('../controllers/adminController');
-const PostsController = require('../controllers/postsController');
-const GroupsController = require('../controllers/groupsController');
+// const User = require('../schemas/userSchema.js');
+const userController = require('../controllers/userController.js');
+const { authenticate,authorize } = require('../auth/authMiddleware.js');
+const adminController = require('../controllers/adminController.js');
+const PostsController = require('../controllers/postsController.js');
+const GroupsController = require('../controllers/groupsController.js');
 
 router.use(authenticate);
 router.use(authorize);

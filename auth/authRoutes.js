@@ -1,8 +1,8 @@
 //./src/routes/authRoutes.js
 const express = require('express');
 const router = express.Router();
-const authController = require('./authController');
-const { authenticate } = require('./authMiddleware');
+const authController = require('./authController.js');
+const { authenticate } = require('./authMiddleware.js');
 
 
 // Rejestracja i logowanie (publiczne endpointy)

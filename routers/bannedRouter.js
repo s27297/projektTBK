@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { authenticate,authorize } = require('../auth/authMiddleware');
-const bannedController = require('../controllers/bannedController');
+const { authenticate,authorize } = require('../auth/authMiddleware.js');
+const bannedController = require('../controllers/bannedController.js');
 
 router.use(authenticate);
 

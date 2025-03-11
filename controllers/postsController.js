@@ -1,10 +1,10 @@
 
 const mongoose = require('mongoose');
 
-const User = require('../schemas/userSchema');
-const Posts = require('../schemas/postsSchema');
-const Comment = require('../schemas/commentSchema');
-const History = require("../schemas/historySchema");
+const User = require('../schemas/userSchema.js');
+const Posts = require('../schemas/postsSchema.js');
+const Comment = require('../schemas/commentSchema.js');
+const History = require("../schemas/historySchema.js");
 
 
 

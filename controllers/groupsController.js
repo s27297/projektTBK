@@ -1,10 +1,10 @@
 
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 
-const Group = require('../schemas/groupSchema');
-const History = require("../schemas/historySchema");
+const Group = require('../schemas/groupSchema.js');
+const History = require("../schemas/historySchema.js");
 
-const User = require('../schemas/userSchema');
+const User = require('../schemas/userSchema.js');
 
 
 //get message

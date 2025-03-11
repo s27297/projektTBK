@@ -1,10 +1,10 @@
+//
+// const mongoose = require('mongoose');
+//
+// const User = require('../schemas/userSchema.js');
+// const Group = require("../schemas/groupSchema.js");
 
-const mongoose = require('mongoose');
-
-const User = require('../schemas/userSchema');
-const Event = require('../schemas/eventSchema');
-const Group = require("../schemas/groupSchema");
-
+const Event = require('../schemas/eventSchema.js');
 
 
 
