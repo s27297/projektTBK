@@ -62,7 +62,7 @@ app.use((err, req, res, next) => {
 
 
 
-const dbURI=process.env.MONGODB_URI
+const dbURI="mongodb://localhost:27017/userdb"
 
 // Nawiązywanie połączenia z MongoDB
 mongoose.connect(dbURI, {

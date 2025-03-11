@@ -2,7 +2,7 @@
 const User = require('../schemas/userSchema');
 const { generateToken ,decodeToken} = require('./jwt');
 const { comparePassword } = require('./passwordUtils');
-const { promisify } = require('util');
+// const { promisify } = require('util');
 const History=require('../schemas/historySchema');
 class AuthController {
 

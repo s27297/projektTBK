@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const {isObjectIdOrHexString} = require("mongoose");
-const History=require('../schemas/historySchema');
-const {authenticate} = require("../auth/authMiddleware");
-const User = require('../schemas/userSchema');
+const History=require('./schemas/historySchema');
+const {authenticate} = require("./auth/authMiddleware");
+const User = require('./schemas/userSchema');
 
 
 

@@ -1,7 +1,5 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const router = express.Router();
-const User = require('../schemas/userSchema');
 const userController = require('../controllers/userController');
 const { authenticate } = require('../auth/authMiddleware');
 const OtherController = require("../controllers/otherController");
