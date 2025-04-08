@@ -4,6 +4,8 @@ services: # services which our app going to use. (list of containers we want to 
     image: mongo # On which image container will build
     ports:
       - "27017:27017"
+    networks:
+      - cat
 
   backend:
     image: backend
@@ -11,9 +13,16 @@ services: # services which our app going to use. (list of containers we want to 
       - "5000:5000"
     depends_on:
       - mongo
+    networks:
+      - cat
   front:
     image: front
     ports:
       - "3000:3000"
     depends_on:
       - backend
+    networks:
+      - cat
+networks:
+  cat:
+    driver: bridge

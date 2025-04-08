@@ -1,19 +1,44 @@
-# Fetching the minified node image on alpine linux
-FROM node:alpine as base
-# Setting up the work directory
+
+
+# Definiujemy argument z wartością domyślną
+ARG NODE_VERSION=alpine
+
+ARG CONTAINER_USER=default
+# Używamy argumentu w instrukcji FROM
+FROM node:${NODE_VERSION} AS BUILD_IMAGE
+
+RUN apk update && apk add shadow && apk add --no-cache bash
+#    apk cache clean
+
 WORKDIR /app
 
-# Copying all the files in our project
-COPY package.json package-lock.json /app/
-RUN npm install
-#RUN rm -rf node_modules && npm install&& yarn cache clean
-COPY . /app
-
-# Installing dependencies
+COPY package.json package-lock.json ./
+RUN npm install && npm cache clean --force && npm prune --production
+COPY ./api .
 
 
-# Starting our application
-CMD [ "node","./project.js" ]
+RUN adduser --system --no-create-home newuser
+USER newuser
+EXPOSE ${PORT}
 
-# Exposing server port
+ARG ENV=production
+ENV NODE_ENV=${ENV}
+
+LABEL author="Artem Stakhovski s27297@pjwstk.eu.pl"
+LABEL version="1.0.3"
+LABEL date_creation="04.04.2025"
+LABEL opis="to jest backend applikacji"
+
+#
+#FROM node:12-alpine
+#
+#WORKDIR /app
+#
+## copy from build image
+#COPY --from=BUILD_IMAGE /app/api .
+#COPY --from=BUILD_IMAGE /app/node_modules ./node_modules
+
+HEALTHCHECK CMD curl --fail http://localhost:5000/health || exit 1
+CMD ["node","./project.js" ]
+
 EXPOSE 5000
